@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Professor!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d1117; /* VS Code dark background */
+            --terminal-bg: #161b22;
+            --accent-color: #58a6ff; /* VS Code blue */
+            --text-color: #c9d1d9;
+            --success: #3fb950; /* VS Code green */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* --- 1. Terminal Styling --- */
+        #terminal {
+            width: 80%;
+            max-width: 700px;
+            background: var(--terminal-bg);
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            border: 1px solid #30363d;
+        }
+
+        .dots { display: flex; gap: 8px; margin-bottom: 15px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+
+        .line { margin-bottom: 8px; font-size: 14px; white-space: nowrap; overflow: hidden; }
+
+        /* --- 2. Photo Reveal Styling --- */
+        #photo-container {
+            display: none; /* Hidden initially */
+            text-align: center;
+            animation: zoomIn 1s ease-out;
+        }
+
+        .img-wrapper {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 20px auto;
+        }
+
+        /* Makes the photo circular with a tech glow */
+        #aunt-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 40px rgba(88, 166, 255, 0.5);
+        }
+
+        .scanning-text {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-color);
+            margin-top: 15px;
+        }
+
+        /* --- 3. Final Card Styling --- */
+        #birthday-card {
+            display: none; /* Hidden initially */
+            text-align: center;
+            background: #1c2128;
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid var(--accent-color);
+            animation: fadeInUp 1s ease-in-out;
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        h1 { color: var(--accent-color); font-size: 2.5rem; margin-bottom: 10px; }
+        p { font-size: 1.1rem; line-height: 1.6; }
+
+        .code-block {
+            background: #0d1117;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            margin: 25px 0;
+            color: #d2a8ff;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            border: 1px solid #30363d;
+        }
+
+        button {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            font-weight: 600;
+        }
+        button:hover { transform: scale(1.05); background: #34d058; }
+
+        /* Animations */
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="terminal">
+        <div class="dots">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div id="terminal-content"></div>
+    </div>
+
+    <div id="photo-container">
+        <div class="img-wrapper">
+            <img src="" onerror="this.src='https://placehold.co/250x250/161b22/58a6ff?text=Aunt+Photo+Not+Found'" alt="Best akka" id="aunt-photo">
+        </div>
+        <p class="scanning-text">> Subject identified. Applying birthday protocols...</p>
+    </div>
+
+    <div id="birthday-card">
+        <h1>Happy Birthday, 🎂</h1>
+        <p>May your life be bug-free and your happiness stack overflow today! Happy Birthday.</p>
+        
+        <div class="code-block">
+            <span style="color: #8b949e;">// Main loop for today</span><br>
+            <span style="color: #ff7b72;">while</span> (isToday()) {<br>
+            &nbsp;&nbsp;akka.joyLevel++;<br>
+            &nbsp;&nbsp;sendLove();<br>
+            &nbsp;&nbsp;<span style="color: #8b949e;">/* TODO: Eat too much cake */</span><br>
+            }
+        </div>
+
+        <button onclick="celebrate()">Run Celebration Function</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        // Getting HTML elements
+        const terminal = document.getElementById('terminal');
+        const terminalContent = document.getElementById('terminal-content');
+        const photoContainer = document.getElementById('photo-container');
+        const card = document.getElementById('birthday-card');
+
+        // Terminal text lines
+        const lines = [
+            "> Booting system...",
+            "> Connecting to '' database...",
+            "> Retrieving profile data... SUCCESS",
+            "> Analysing Awesomeness parameters... 110%",
+            "> Compiling birthday wishes...",
+            "> READY. Press ANY KEY to execute."
+        ];
+
+        let lineIndex = 0;
+        let isTerminalFinished = false;
+
+        // Function to type out terminal lines
+        function typeLine() {
+            if (lineIndex < lines.length) {
+                let div = document.createElement('div');
+                div.className = 'line';
+                div.textContent = lines[lineIndex];
+                terminalContent.appendChild(div);
+                lineIndex++;
+                // Scroll to bottom of terminal
+                terminalContent.scrollTop = terminalContent.scrollHeight;
+                setTimeout(typeLine, 600);
+            } else {
+                isTerminalFinished = true;
+            }
+        }
+
+        // Start the terminal animation
+        setTimeout(typeLine, 500);
+
+        // Event Listeners for user input
+        window.addEventListener('keydown', startTransition);
+        window.addEventListener('click', startTransition);
+
+        function startTransition() {
+            // Only proceed if terminal is done and we haven't started yet
+            if (isTerminalFinished && terminal.style.display !== 'none') {
+                showPhotoStage();
+            }
+        }
+
+        // Step 2: Show the photo
+        function showPhotoStage() {
+            terminal.style.display = 'none';
+            photoContainer.style.display = 'block';
+
+            // Automatically move to final card after 3.5 seconds
+            setTimeout(showFinalCard, 3500);
+        }
+
+        // Step 3: Show the final card
+        function showFinalCard() {
+            photoContainer.style.display = 'none';
+            card.style.display = 'block';
+        }
+
+        // Confetti explosion function
+        function celebrate() {
+            // Fire confetti from left and right edges
+            var count = 200;
+            var defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+            confetti(Object.assign({}, defaults, opts, {
+                particleCount: Math.floor(count * particleRatio)
+            }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55, colors: ['#58a6ff', '#3fb950'] });
+            fire(0.2, { spread: 60, colors: ['#d2a8ff', '#ff7b72'] });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+    </script>
+</body>
+</html>
