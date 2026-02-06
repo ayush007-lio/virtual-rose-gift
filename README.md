@@ -33,7 +33,8 @@ Perfect for expressing emotions in a simple yet magical way 💖
 
 > 🌹 A floating rose with glowing light, romantic quote, and soothing background music.
 
-*(You can add screenshots or a GIF here for even better presentation)*
+<img width="859" height="455" alt="rose v" src="https://github.com/user-attachments/assets/d1dcd5a3-b67b-4ea8-868c-9c3ef4d1cf4e" />
+
 
 ---
 
