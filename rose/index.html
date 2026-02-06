@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Rose Gift 🌹</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container" id="formSection">
+  <h1>🌹 Virtual Rose Gift 🌹</h1>
+
+  <input type="text" id="nameInput" placeholder="Enter her name ❤️">
+
+  <select id="roseColor">
+    <option value="red">Red – Love & Passion</option>
+    <option value="pink">Pink – Sweet & Caring</option>
+    <option value="white">White – Pure Love</option>
+  </select>
+
+  <button id="giveRoseBtn">Give Rose 🌹</button>
+</div>
+
+<div class="container hidden" id="roseSection">
+  <!-- 🌟 Glow wrapper -->
+  <div class="rose-glow" id="roseGlow">
+    <img src="rose.avif" class="rose-img" alt="Rose">
+  </div>
+
+  <h2 class="glow-name" id="herName"></h2>
+  <p class="quote" id="loveQuote"></p>
+
+  <audio id="bgMusic" playsinline></audio>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
